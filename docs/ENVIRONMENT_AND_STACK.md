@@ -1,0 +1,83 @@
+# 祜·Care 开发环境与技术栈说明
+
+- 状态：V0.1 / 解释与待核验清单
+- 原则：先盘点本机现状和现有 Skills，再决定安装或更换技术
+- 注意：文档中的技术方案是建议，不表示相关软件已安装
+
+## 1. 两个概念的区别
+
+### 开发环境
+开发环境是开发者用来编辑、运行、调试和测试项目的电脑与软件，包括操作系统、编辑器、语言运行时、包管理器、Git、环境变量、数据库和本地启动方式。
+
+### 技术栈
+技术栈是产品实际采用的技术组合，例如前端框架、后端框架、数据库、AI 模型接入方式和部署工具。
+
+开发环境回答“在哪里、如何开发和运行”；技术栈回答“产品由哪些技术组成”。
+
+## 2. 当前已知信息
+
+- 本地 Skills 目录：`/Users/zaihu.zhou/.workbuddy/skills/`
+- 用户确认 PE 分析技能已从 `hu-inv-PE` 改名为 `pe-vc-analyst`
+- 其他候选技能名：`hu-inv-dd`、`hu-inv-fin-analysis`（实际目录、入口和可运行性仍需核验）
+- GitHub 仓库：`zaihuzhou/Hu-Care`
+- UI 基准：用户提供的 Hu-Fin AI 投资副驾驶工作台截图，细节见 `UI_BASELINE.md`
+
+当前无法直接读取用户 Mac 本机目录；不能仅凭目录路径就声称已检查技能文件或软件安装情况。需要在用户本机运行检查命令，或由用户提供目录清单/文件内容。
+
+## 3. 推荐技术栈（待审计后确认）
+
+| 层 | 候选技术 | 选择理由 |
+|---|---|---|
+| Web 前端 | Next.js + React + TypeScript | 适合构建复杂、可交互的工作台 |
+| UI 样式与组件 | Tailwind CSS + shadcn/ui | 便于实现统一组件；需遵循既定 UI 基准 |
+| API 后端 | Python + FastAPI | 便于复用 Python 生态与研究类工具 |
+| 结构化数据 | PostgreSQL | 适合项目、证据、任务、风险和判断等关联数据 |
+| 搜索 | 初期 PostgreSQL 全文检索；需要时评估 pgvector | 先满足基本检索，避免过早增加复杂度 |
+| 版本管理 | Git + GitHub | 记录变更、协作和回滚 |
+| 本地服务 | 视本机情况决定是否使用 Docker Compose | 统一数据库等服务的启动方式，但不是必须前提 |
+
+上述方案是默认候选，不是已做出的最终技术决定。若现有 Skills 的运行环境或依赖要求不同，应先评估复用成本。
+
+## 4. S0 本机环境核验
+
+在 Mac 终端中运行以下命令，只检查版本，不会安装软件或修改项目：
+
+```bash
+sw_vers
+git --version
+node --version
+npm --version
+python3 --version
+```
+
+如某条命令提示找不到，记录原始提示即可，不必立刻安装。
+
+## 5. Skills 盘点
+
+先只列出技能目录名称：
+
+```bash
+ls -la "/Users/zaihu.zhou/.workbuddy/skills/"
+```
+
+再检查相关目录是否存在：
+
+```bash
+ls -la "/Users/zaihu.zhou/.workbuddy/skills/hu-inv-dd"
+ls -la "/Users/zaihu.zhou/.workbuddy/skills/hu-inv-fin-analysis"
+ls -la "/Users/zaihu.zhou/.workbuddy/skills/pe-vc-analyst"
+```
+
+若目录名不同，以实际输出为准。分享结果时不要粘贴 API 密钥、令牌、密码或含敏感信息的环境变量。
+
+## 6. 技术栈最终确定前的检查
+
+- 现有 Skills 使用的语言、依赖、运行入口、输入输出格式。
+- 是否已有 Node.js、Python、数据库或容器运行环境。
+- 模型 API 的提供方、凭证保存方式和预算。
+- 本地开发还是云端部署，以及项目材料的存储位置。
+- 第三方数据源的授权与 API 可用性。
+
+## 7. 决策原则
+
+先复用可用工具，避免为了追求“标准架构”而重写已能工作的 Skills；先跑通一个有证据追溯的研究任务，再扩展更多工作流。
