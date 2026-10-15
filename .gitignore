@@ -1,0 +1,32 @@
+# dependencies
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# build outputs
+.next/
+out/
+dist/
+build/
+coverage/
+
+# local configuration and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# local databases and uploads
+*.sqlite
+*.sqlite3
+uploads/
+data/local/
+
+# OS/editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
